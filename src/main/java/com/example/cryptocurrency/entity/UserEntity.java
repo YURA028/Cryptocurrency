@@ -22,6 +22,4 @@ public class UserEntity {
     @Column(name = "price_usd")
     private Double priceUsd;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<TodoEntity> todos;
 }
