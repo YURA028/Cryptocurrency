@@ -1,10 +1,9 @@
 package com.example.cryptocurrency.repository;
 
-import com.example.cryptocurrency.entity.UserEntity;
+import com.example.cryptocurrency.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByUsername (String username);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername (String username);
 
 }

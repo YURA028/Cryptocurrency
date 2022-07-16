@@ -10,16 +10,18 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
-public class UserEntity {
+@Table
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String username;
-    private String password;
+    @Column
     private String symbol;
-    @Column(name = "price_usd")
-    private Double priceUsd;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "price_id", referencedColumnName = "id")
+    private Price price;
 
 }

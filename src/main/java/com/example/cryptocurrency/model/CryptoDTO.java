@@ -1,5 +1,6 @@
 package com.example.cryptocurrency.model;
 
+import com.example.cryptocurrency.entity.Crypto;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -7,7 +8,8 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @ToString
-public class Crypto {
+@Builder
+public class CryptoDTO {
 
     private Long id;
     private String symbol;
@@ -26,13 +28,16 @@ public class Crypto {
     private String tsupply;
     private String msupply;
 
-    public static Crypto toModel(com.example.cryptocurrency.entity.Crypto entity) {
-        Crypto model = new Crypto();
-        model.setId(entity.getId());
-        model.setSymbol(entity.getSymbol());
-        model.setName(entity.getName());
-        model.setPrice_usd(entity.getPrice_usd());
-        model.setPercent_change_1h(entity.getPercent_change_1h());
-        return model;
+    public static CryptoDTO toModel(Crypto entity) {
+        return CryptoDTO.builder().id(entity.getId())
+                .symbol(entity.getSymbol())
+                .name(entity.getName())
+                .price_usd(entity.getPrice_usd())
+                .build();
+//        model.setId(entity.getId());
+//        model.setSymbol(entity.getSymbol());
+//        model.setName(entity.getName());
+//        model.setPrice_usd(entity.getPrice_usd());
+//        return model;
     }
 }

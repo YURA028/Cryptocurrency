@@ -1,9 +1,6 @@
 package com.example.cryptocurrency.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -11,9 +8,10 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "crypto")
+@Table
 public class Crypto {
 
         @Id
@@ -25,7 +23,7 @@ public class Crypto {
         private String name;
         @Column
         private String nameid;
-        @Column(name = "rank22", nullable = true)
+        @Column(name = "'rank'")
         private String rank;
         @Column
         private BigDecimal price_usd;

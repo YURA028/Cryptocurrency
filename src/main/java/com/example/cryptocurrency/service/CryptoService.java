@@ -1,6 +1,8 @@
 package com.example.cryptocurrency.service;
 
 import com.example.cryptocurrency.entity.Crypto;
+import com.example.cryptocurrency.model.CryptoDTO;
+import com.example.cryptocurrency.model.CryptoNameDTO;
 import com.example.cryptocurrency.repository.CryptoRepository;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -23,18 +25,31 @@ public class CryptoService {
     @Autowired
     private CryptoRepository cryptoRepository;
 
-    public List<Crypto> getAll(){
-        log.warn("method222 scheduler");
-        return cryptoRepository.findAll();
+    public CryptoNameDTO toDTO(Crypto crypto) {
+        return CryptoNameDTO.builder()
+                .name(crypto.getName())
+                .build();
     }
 
-    public com.example.cryptocurrency.model.Crypto getOneCrypto(Long id) {
+    public List<CryptoNameDTO> getAll() {
+        log.warn("method222 scheduler");
+        return cryptoRepository.findAll()
+                .stream().map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Crypto getCrypto (String symbol){
+        return cryptoRepository.findBySymbol(symbol);
+    }
+
+    public CryptoDTO getOneCrypto(String symbol) {
         log.warn("method333 scheduler");
-        Crypto crypto = cryptoRepository.findById(id).get();
-        return com.example.cryptocurrency.model.Crypto.toModel(crypto);
+        Crypto crypto = cryptoRepository.findBySymbol(symbol);
+        return CryptoDTO.toModel(crypto);
     }
 
     public void editPrice(String url_crypto) {
+
         log.warn("method scheduler");
         HttpURLConnection connection = null;
         URL url = null;
@@ -56,13 +71,12 @@ public class CryptoService {
                 while ((line = bfR.readLine()) != null) {
                     System.out.println(line);
 
-                    com.example.cryptocurrency.model.Crypto[] p = g.fromJson(line, com.example.cryptocurrency.model.Crypto[].class);
-                    System.out.println(Arrays.toString(p));
+                    CryptoDTO[] p = g.fromJson(line, CryptoDTO[].class);
 
-                    List<com.example.cryptocurrency.model.Crypto> cryptocurrency = Arrays.stream(p)
+                    List<CryptoDTO> cryptocurrency = Arrays.stream(p)
                             .collect(Collectors.toList());
 
-                    for (com.example.cryptocurrency.model.Crypto a : cryptocurrency) {
+                    for (CryptoDTO a : cryptocurrency) {
                         cryptoPrice.setId(a.getId());
                         cryptoPrice.setSymbol(a.getSymbol());
                         cryptoPrice.setName(a.getName());
@@ -79,10 +93,8 @@ public class CryptoService {
                         cryptoPrice.setPrice_btc(a.getPrice_btc());
                         cryptoPrice.setTsupply(a.getTsupply());
                         cryptoPrice.setMsupply(a.getMsupply());
-                        System.out.println(a.getPrice_usd());
                     }
                     cryptoRepository.save(cryptoPrice);
-                    System.out.println(cryptoPrice);
                 }
             } else {
                 System.out.println("No connection " + connection.getResponseCode());
