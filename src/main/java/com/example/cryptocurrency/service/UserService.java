@@ -42,20 +42,4 @@ public class UserService {
             }
         }
     }
-
-    public void priceChange (User user){
-        Crypto crypto = cryptoRepository.findBySymbol(user.getSymbol());
-            double w = crypto.getPriceUsd();
-            double q = user.getPrice().getPriceUsd();
-            double e = ((q-w)/((q+w)/2))*100;
-        System.out.println(e);
-            boolean n = true;
-        while (n){
-            if (e >= 1){
-                log.warn("Код валюты :" + user.getSymbol() + "имя пользователя :" + user.getUsername()
-                        + "процент изменения цены :" + e);
-                n = false;
-            }
-        }
-    }
 }

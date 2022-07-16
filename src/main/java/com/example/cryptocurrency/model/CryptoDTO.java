@@ -16,7 +16,7 @@ public class CryptoDTO {
     private String name;
     private String nameid;
     private String rank;
-    private Double price_usd;
+    private BigDecimal price_usd;
     private String percent_change_24h;
     private String percent_change_1h;
     private String percent_change_7d;

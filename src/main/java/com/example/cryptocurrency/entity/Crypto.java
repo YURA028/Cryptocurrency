@@ -26,7 +26,7 @@ public class Crypto {
         @Column(name = "rank_crypto")
         private String rank;
         @Column(name = "price_usd")
-        private Double priceUsd;
+        private BigDecimal priceUsd;
         @Column(name = "percent_change_24h")
         private String percentChangeTwentyFourH;
         @Column(name = "percent_change_1h")

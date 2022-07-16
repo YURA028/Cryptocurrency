@@ -121,14 +121,24 @@ public class CryptoService {
             for (Crypto crypto: cryptos){
                     for (User user: users){
                     if (user.getSymbol().equals(crypto.getSymbol())){
-                        double w = crypto.getPriceUsd();
-                        double q = user.getPrice().getPriceUsd();
-                        double e = ((w-q)/((w+q)/2))*100;
-                        System.out.println(e);
-                        if (e >= 1){
-                            log.warn("\nКод валюты :" + user.getSymbol()
-                                    + "\nимя пользователя :" + user.getUsername()
-                                    + "\nцена изменилась на : " + e + "%");
+                        double priceUsd = crypto.getPriceUsd().doubleValue();
+                        double price = user.getPrice().getPriceUsd().doubleValue();
+                        if (priceUsd >= price){
+                            double calculation = ((priceUsd-price)/((priceUsd+price)/2))*100;
+                            int percent = (int) calculation;
+                            if (calculation >= 1){
+                                log.warn("\nКод валюты :" + user.getSymbol()
+                                        + "\nимя пользователя :" + user.getUsername()
+                                        + "\nцена изменилась на : +" + percent + "%");
+                            }
+                        }else {
+                            double calculation = ((price-priceUsd)/((price+priceUsd)/2))*100;
+                            int percent = (int) calculation;
+                            if (calculation >= 1){
+                                log.warn("\nКод валюты : " + user.getSymbol()
+                                        + "\nимя пользователя : " + user.getUsername()
+                                        + "\nцена изменилась на : -" + percent + "%");
+                            }
                         }
                     }
                 }

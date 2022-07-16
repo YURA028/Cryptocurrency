@@ -20,6 +20,6 @@ public class Price {
     @Column
     private Long id;
     @Column(name = "price_usd")
-    private Double priceUsd;
+    private BigDecimal priceUsd;
 
 }
