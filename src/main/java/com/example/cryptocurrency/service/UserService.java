@@ -39,7 +39,6 @@ public class UserService {
                 priceRepository.save(price);
                 user.setPrice(price);
                 userRepository.save(user);
-                priceChange(user);
             }
         }
     }

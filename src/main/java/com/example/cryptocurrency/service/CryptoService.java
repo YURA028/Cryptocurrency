@@ -1,9 +1,11 @@
 package com.example.cryptocurrency.service;
 
 import com.example.cryptocurrency.entity.Crypto;
+import com.example.cryptocurrency.entity.User;
 import com.example.cryptocurrency.model.CryptoDTO;
 import com.example.cryptocurrency.model.CryptoNameDTO;
 import com.example.cryptocurrency.repository.CryptoRepository;
+import com.example.cryptocurrency.repository.UserRepository;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public CryptoNameDTO toDTO(Crypto crypto) {
         return CryptoNameDTO.builder()
@@ -107,6 +111,29 @@ public class CryptoService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void priceChange (){
+        List<User> users = userRepository.findAll();
+        List<Crypto> cryptos = cryptoRepository.findAll();
+        boolean n = true;
+        while (n){
+            for (Crypto crypto: cryptos){
+                    for (User user: users){
+                    if (user.getSymbol().equals(crypto.getSymbol())){
+                        double w = crypto.getPriceUsd();
+                        double q = user.getPrice().getPriceUsd();
+                        double e = ((w-q)/((w+q)/2))*100;
+                        System.out.println(e);
+                        if (e >= 1){
+                            log.warn("\nКод валюты :" + user.getSymbol()
+                                    + "\nимя пользователя :" + user.getUsername()
+                                    + "\nцена изменилась на : " + e + "%");
+                        }
+                    }
+                }
+            }
+            n = false;
         }
     }
 }
