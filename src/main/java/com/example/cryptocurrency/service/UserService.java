@@ -45,11 +45,7 @@ public class UserService {
                 priceRepository.save(price);
                 user.setPrice(price);
                 userRepository.save(user);
-
-
                 priceChange(user);
-
-
             }
         }
     }
@@ -63,18 +59,11 @@ public class UserService {
             boolean n = true;
         while (n){
             if (e >= 1){
-                log.warn("method333 scheduler");
+                log.warn("Код валюты :" + user.getSymbol() + "имя пользователя :" + user.getUsername()
+                        + "процент изменения цены :" + e);
                 n = false;
             }
         }
     }
-
-
-    public UserDTO getOne(Long id) throws UserNotFoundException {
-        User user = userRepository.findById(id).get();
-        if (user == null) {
-            throw new UserNotFoundException("Пользователь не найден");
-        }
-        return UserDTO.toModel(user);
-    }
+    
 }
