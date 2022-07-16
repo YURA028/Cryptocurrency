@@ -28,8 +28,6 @@ public class CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;
-    @Autowired
-    private PriceRepository priceRepository;
 
     public CryptoNameDTO toDTO(Crypto crypto) {
         return CryptoNameDTO.builder()
@@ -37,10 +35,7 @@ public class CryptoService {
                 .build();
     }
 
-
-
     public List<CryptoNameDTO> getAll() {
-        log.warn("method222 scheduler");
         return cryptoRepository.findAll()
                 .stream().map(this::toDTO)
                 .collect(Collectors.toList());
@@ -50,15 +45,8 @@ public class CryptoService {
         return cryptoRepository.findBySymbol(symbol);
     }
 
-    public CryptoDTO getOneCrypto(String symbol) {
-        log.warn("method333 scheduler");
-        Crypto crypto = cryptoRepository.findBySymbol(symbol);
-        return CryptoDTO.toModel(crypto);
-    }
-
     public void editPrice(String url_crypto) {
 
-        log.warn("method scheduler");
         HttpURLConnection connection = null;
         URL url = null;
         InputStreamReader isR = null;
@@ -77,8 +65,7 @@ public class CryptoService {
 
                 String line;
                 while ((line = bfR.readLine()) != null) {
-                    System.out.println(line);
-
+                    log.warn(line);
                     CryptoDTO[] p = g.fromJson(line, CryptoDTO[].class);
 
                     List<CryptoDTO> cryptocurrency = Arrays.stream(p)
@@ -106,7 +93,7 @@ public class CryptoService {
                     cryptoRepository.save(cryptoPrice);
                 }
             } else {
-                System.out.println("No connection " + connection.getResponseCode());
+                log.warn("No connection " + connection.getResponseCode());
             }
         } catch (IOException e) {
             e.printStackTrace();
