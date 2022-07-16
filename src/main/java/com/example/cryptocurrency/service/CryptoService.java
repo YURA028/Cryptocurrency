@@ -127,17 +127,17 @@ public class CryptoService {
                             double calculation = ((priceUsd-price)/((priceUsd+price)/2))*100;
                             int percent = (int) calculation;
                             if (calculation >= 1){
-                                log.warn("\nКод валюты :" + user.getSymbol()
-                                        + "\nимя пользователя :" + user.getUsername()
-                                        + "\nцена изменилась на : +" + percent + "%");
+                                log.warn("\nSymbol : " + user.getSymbol()
+                                        + "\nUsername : " + user.getUsername()
+                                        + "\nPrice change percentage : -" + percent + "%");
                             }
                         }else {
                             double calculation = ((price-priceUsd)/((price+priceUsd)/2))*100;
                             int percent = (int) calculation;
                             if (calculation >= 1){
-                                log.warn("\nКод валюты : " + user.getSymbol()
-                                        + "\nимя пользователя : " + user.getUsername()
-                                        + "\nцена изменилась на : -" + percent + "%");
+                                log.warn("\nSymbol : " + user.getSymbol()
+                                        + "\nUsername : " + user.getUsername()
+                                        + "\nPrice change percentage : -" + percent + "%");
                             }
                         }
                     }
