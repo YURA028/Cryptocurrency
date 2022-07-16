@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "price")
@@ -20,10 +19,7 @@ public class Price {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    @Column
-    private BigDecimal price_usd;
-    @Column
-    private BigDecimal price_usd_online;
-
+    @Column(name = "price_usd")
+    private Double priceUsd;
 
 }

@@ -8,8 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CryptoScheduler {
 
+    private final CryptoService cryptoService;
+
     @Autowired
-    private CryptoService cryptoService;
+    public CryptoScheduler(CryptoService cryptoService) {
+        this.cryptoService = cryptoService;
+    }
 
     final String bts = "https://api.coinlore.net/api/ticker/?id=90";
     final String eth = "https://api.coinlore.net/api/ticker/?id=80";

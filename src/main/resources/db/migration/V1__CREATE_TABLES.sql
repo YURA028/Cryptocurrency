@@ -1,29 +1,19 @@
-# create table hibernate_sequence (
-#     next_val bigint
-# ) engine=MyISAM;
-#
-# insert into hibernate_sequence values ( 1 );
-# insert into hibernate_sequence values ( 1 );
-#
-# CREATE TABLE user (
-#                       id BIGINT NOT NULL AUTO_INCREMENT,
-#                       password varchar(64) not null,
-#                       username varchar(64) not null unique,
-#                       PRIMARY KEY (id)
-# ) engine=MyISAM;
-#
-# CREATE TABLE todo (
-#                       id BIGINT NOT NULL AUTO_INCREMENT,
-#                       title varchar(64) not null,
-#                       completed BOOLEAN not null,
-#                       PRIMARY KEY (id)
-# ) engine=MyISAM;
-#
-# CREATE TABLE crypto (
-#                       id BIGINT NOT NULL,
-#                       symbol varchar(64) not null,
-#                       name varchar(64) not null,
-#                       price_usd DECIMAL not null,
-#                       percent_change DECIMAL not null,
-#                       PRIMARY KEY (id)
-# ) engine=MyISAM;
+create table crypto (
+                        id bigint not null auto_increment,
+                        csupply double precision,
+                        market_cap_usd double precision,
+                        msupply double precision,
+                        name varchar(255),
+                        nameid varchar(255),
+                        percent_change_1h double precision,
+                        percent_change_7d double precision,
+                        percent_change_24h double precision,
+                        price_btc double precision,
+                        price_usd double precision,
+                        rank_crypto bigint,
+                        symbol varchar(255),
+                        tsupply double precision,
+                        volume24 double precision,
+                        volume24_native double precision,
+                        primary key (id)
+) engine=InnoDB

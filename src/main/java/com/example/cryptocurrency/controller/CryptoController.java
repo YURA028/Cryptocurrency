@@ -21,16 +21,16 @@ public class CryptoController {
         try {
             return ResponseEntity.ok(cryptoService.getAll());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("An error has occurred");
         }
     }
 
     @GetMapping("/{symbol}")
-    public ResponseEntity<?> getOneCrypto(@PathVariable String symbol){
+    public ResponseEntity<?> getCryptoPage(@PathVariable String symbol){
         try {
-            return ResponseEntity.ok(cryptoService.getCrypto(symbol).getPrice_usd());
+            return ResponseEntity.ok(cryptoService.getCrypto(symbol).getPriceUsd());
         }catch (Exception e){
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("An error has occurred");
         }
     }
 }

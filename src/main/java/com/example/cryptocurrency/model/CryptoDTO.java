@@ -16,7 +16,7 @@ public class CryptoDTO {
     private String name;
     private String nameid;
     private String rank;
-    private BigDecimal price_usd;
+    private Double price_usd;
     private String percent_change_24h;
     private String percent_change_1h;
     private String percent_change_7d;
@@ -28,11 +28,4 @@ public class CryptoDTO {
     private String tsupply;
     private String msupply;
 
-    public static CryptoDTO toModel(Crypto entity) {
-        return CryptoDTO.builder().id(entity.getId())
-                .symbol(entity.getSymbol())
-                .name(entity.getName())
-                .price_usd(entity.getPrice_usd())
-                .build();
-    }
 }

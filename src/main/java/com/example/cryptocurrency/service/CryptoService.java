@@ -1,12 +1,9 @@
 package com.example.cryptocurrency.service;
 
 import com.example.cryptocurrency.entity.Crypto;
-import com.example.cryptocurrency.entity.User;
 import com.example.cryptocurrency.model.CryptoDTO;
 import com.example.cryptocurrency.model.CryptoNameDTO;
-import com.example.cryptocurrency.model.PriceDTO;
 import com.example.cryptocurrency.repository.CryptoRepository;
-import com.example.cryptocurrency.repository.PriceRepository;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
@@ -61,7 +57,7 @@ public class CryptoService {
                 isR = new InputStreamReader(connection.getInputStream());
                 bfR = new BufferedReader(isR);
                 Gson g = new Gson();
-                Crypto cryptoPrice = new Crypto();
+                Crypto crypto = new Crypto();
 
                 String line;
                 while ((line = bfR.readLine()) != null) {
@@ -72,25 +68,24 @@ public class CryptoService {
                             .collect(Collectors.toList());
 
                     for (CryptoDTO a : cryptocurrency) {
-                        cryptoPrice.setId(a.getId());
-                        cryptoPrice.setSymbol(a.getSymbol());
-                        cryptoPrice.setName(a.getName());
-                        cryptoPrice.setNameid(a.getNameid());
-                        cryptoPrice.setRank(a.getRank());
-                        cryptoPrice.setPrice_usd(a.getPrice_usd());
-                        cryptoPrice.setPercent_change_24h(a.getPercent_change_24h());
-                        cryptoPrice.setPercent_change_1h(a.getPercent_change_1h());
-                        cryptoPrice.setPercent_change_7d(a.getPercent_change_7d());
-                        cryptoPrice.setMarket_cap_usd(a.getMarket_cap_usd());
-                        cryptoPrice.setVolume24(a.getVolume24());
-                        cryptoPrice.setVolume24_native(a.getVolume24_native());
-                        cryptoPrice.setCsupply(a.getCsupply());
-                        cryptoPrice.setPrice_btc(a.getPrice_btc());
-                        cryptoPrice.setTsupply(a.getTsupply());
-                        cryptoPrice.setMsupply(a.getMsupply());
-
+                        crypto.setId(a.getId());
+                        crypto.setSymbol(a.getSymbol());
+                        crypto.setName(a.getName());
+                        crypto.setNameId(a.getNameid());
+                        crypto.setRank(a.getRank());
+                        crypto.setPriceUsd(a.getPrice_usd());
+                        crypto.setPercentChangeTwentyFourH(a.getPercent_change_24h());
+                        crypto.setPercentChangeOneH(a.getPercent_change_1h());
+                        crypto.setPercentChangeSevenD(a.getPercent_change_1h());
+                        crypto.setMarketCapUsd(a.getMarket_cap_usd());
+                        crypto.setVolumeTwentyFour(a.getVolume24());
+                        crypto.setVolumeTwentyFourNative(a.getVolume24_native());
+                        crypto.setCsupply(a.getCsupply());
+                        crypto.setPriceBtc(a.getPrice_btc());
+                        crypto.setTsupply(a.getTsupply());
+                        crypto.setMsupply(a.getMsupply());
                     }
-                    cryptoRepository.save(cryptoPrice);
+                    cryptoRepository.save(crypto);
                 }
             } else {
                 log.warn("No connection " + connection.getResponseCode());
