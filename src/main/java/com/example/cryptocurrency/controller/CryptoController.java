@@ -25,14 +25,13 @@ public class CryptoController {
         }
     }
 
-    @GetMapping("/one/{symbol}")
+    @GetMapping("/{symbol}")
     public ResponseEntity<?> getOneCrypto(@PathVariable String symbol){
+        System.out.println(cryptoService.getCrypto(symbol).getPrice_usd());
         try {
             return ResponseEntity.ok(cryptoService.getCrypto(symbol).getPrice_usd());
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
-
-
 }

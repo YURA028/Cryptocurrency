@@ -10,9 +10,10 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "price")
 public class Price {
 
     @Id
@@ -21,6 +22,8 @@ public class Price {
     private Long id;
     @Column
     private BigDecimal price_usd;
+    @Column
+    private BigDecimal price_usd_online;
 
 
 }

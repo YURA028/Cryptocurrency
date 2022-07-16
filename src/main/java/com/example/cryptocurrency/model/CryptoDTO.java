@@ -34,10 +34,5 @@ public class CryptoDTO {
                 .name(entity.getName())
                 .price_usd(entity.getPrice_usd())
                 .build();
-//        model.setId(entity.getId());
-//        model.setSymbol(entity.getSymbol());
-//        model.setName(entity.getName());
-//        model.setPrice_usd(entity.getPrice_usd());
-//        return model;
     }
 }

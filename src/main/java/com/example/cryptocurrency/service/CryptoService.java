@@ -1,9 +1,12 @@
 package com.example.cryptocurrency.service;
 
 import com.example.cryptocurrency.entity.Crypto;
+import com.example.cryptocurrency.entity.User;
 import com.example.cryptocurrency.model.CryptoDTO;
 import com.example.cryptocurrency.model.CryptoNameDTO;
+import com.example.cryptocurrency.model.PriceDTO;
 import com.example.cryptocurrency.repository.CryptoRepository;
+import com.example.cryptocurrency.repository.PriceRepository;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
@@ -24,12 +28,16 @@ public class CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;
+    @Autowired
+    private PriceRepository priceRepository;
 
     public CryptoNameDTO toDTO(Crypto crypto) {
         return CryptoNameDTO.builder()
                 .name(crypto.getName())
                 .build();
     }
+
+
 
     public List<CryptoNameDTO> getAll() {
         log.warn("method222 scheduler");
@@ -93,6 +101,7 @@ public class CryptoService {
                         cryptoPrice.setPrice_btc(a.getPrice_btc());
                         cryptoPrice.setTsupply(a.getTsupply());
                         cryptoPrice.setMsupply(a.getMsupply());
+
                     }
                     cryptoRepository.save(cryptoPrice);
                 }

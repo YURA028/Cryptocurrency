@@ -9,9 +9,10 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "crypto")
 public class Crypto {
 
         @Id
@@ -23,7 +24,7 @@ public class Crypto {
         private String name;
         @Column
         private String nameid;
-        @Column(name = "'rank'")
+        @Column(name = "rank_crypto")
         private String rank;
         @Column
         private BigDecimal price_usd;
