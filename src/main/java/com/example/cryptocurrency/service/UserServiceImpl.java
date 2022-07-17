@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-@Log4j
 public class UserServiceImpl implements UserService{
 
     @Autowired
