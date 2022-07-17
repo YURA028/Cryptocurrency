@@ -28,17 +28,17 @@ public class Crypto {
         @Column(name = "price_usd")
         private BigDecimal priceUsd;
         @Column(name = "percent_change_24h")
-        private String percentChangeTwentyFourH;
+        private String percentChange24H;
         @Column(name = "percent_change_1h")
-        private String percentChangeOneH;
+        private String percentChange1H;
         @Column(name = "percent_change_7d")
-        private String percentChangeSevenD;
+        private String percentChange7D;
         @Column(name = "market_cap_usd")
         private String marketCapUsd;
         @Column(name = "volume24")
-        private String volumeTwentyFour;
+        private String volume24;
         @Column(name = "volume24_native")
-        private String volumeTwentyFourNative;
+        private String volume24Native;
         @Column
         private String csupply;
         @Column(name = "price_btc")

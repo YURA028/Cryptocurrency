@@ -2,7 +2,7 @@ package com.example.cryptocurrency.controller;
 
 import com.example.cryptocurrency.entity.User;
 import com.example.cryptocurrency.exception.UserAlreadyExistException;
-import com.example.cryptocurrency.service.UserService;
+import com.example.cryptocurrency.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
         @PostMapping
     public ResponseEntity<?> registration(@RequestBody User user){

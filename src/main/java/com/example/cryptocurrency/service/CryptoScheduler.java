@@ -1,6 +1,5 @@
 package com.example.cryptocurrency.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -8,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CryptoScheduler {
 
-    private final CryptoService cryptoService;
+    private final CryptoServiceImpl cryptoService;
 
     @Autowired
-    public CryptoScheduler(CryptoService cryptoService) {
+    public CryptoScheduler(CryptoServiceImpl cryptoService) {
         this.cryptoService = cryptoService;
     }
 
