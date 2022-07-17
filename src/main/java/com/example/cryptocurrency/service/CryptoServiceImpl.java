@@ -43,7 +43,7 @@ public class CryptoServiceImpl implements CryptoService {
     }
 
     @Override
-    public Crypto getCrypto (String symbol){
+    public Crypto getCrypto(String symbol) {
         return cryptoRepository.findBySymbol(symbol);
     }
 
@@ -118,37 +118,33 @@ public class CryptoServiceImpl implements CryptoService {
     }
 
     @Override
-    public void priceChange (){
+    public void priceChange() {
         List<User> users = userRepository.findAll();
         List<Crypto> cryptos = cryptoRepository.findAll();
-        boolean n = true;
-        while (n){
-            for (Crypto crypto: cryptos){
-                    for (User user: users){
-                    if (user.getSymbol().equals(crypto.getSymbol())){
-                        double priceUsd = crypto.getPriceUsd().doubleValue();
-                        double price = user.getPrice().getPriceUsd().doubleValue();
-                        if (priceUsd >= price){
-                            double calculation = ((priceUsd-price)/((priceUsd+price)/2))*100;
-                            int percent = (int) calculation;
-                            if (calculation >= 1){
-                                log.warn("\nSymbol : " + user.getSymbol()
-                                        + "\nUsername : " + user.getUsername()
-                                        + "\nPrice change percentage : -" + percent + "%");
-                            }
-                        }else {
-                            double calculation = ((price-priceUsd)/((price+priceUsd)/2))*100;
-                            int percent = (int) calculation;
-                            if (calculation >= 1){
-                                log.warn("\nSymbol : " + user.getSymbol()
-                                        + "\nUsername : " + user.getUsername()
-                                        + "\nPrice change percentage : -" + percent + "%");
-                            }
+        for (Crypto crypto : cryptos) {
+            for (User user : users) {
+                if (user.getSymbol().equals(crypto.getSymbol())) {
+                    double priceUsd = crypto.getPriceUsd().doubleValue();
+                    double price = user.getPrice().getPriceUsd().doubleValue();
+                    if (priceUsd >= price) {
+                        double calculation = ((priceUsd - price) / ((priceUsd + price) / 2)) * 100;
+                        int percent = (int) calculation;
+                        if (calculation >= 1) {
+                            log.warn("\nSymbol : " + user.getSymbol()
+                                    + "\nUsername : " + user.getUsername()
+                                    + "\nPrice change percentage : -" + percent + "%");
+                        }
+                    } else {
+                        double calculation = ((price - priceUsd) / ((price + priceUsd) / 2)) * 100;
+                        int percent = (int) calculation;
+                        if (calculation >= 1) {
+                            log.warn("\nSymbol : " + user.getSymbol()
+                                    + "\nUsername : " + user.getUsername()
+                                    + "\nPrice change percentage : -" + percent + "%");
                         }
                     }
                 }
             }
-            n = false;
         }
     }
 }
