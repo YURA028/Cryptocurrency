@@ -31,16 +31,20 @@ public class UserServiceImpl implements UserService{
         if (crypto == null) {
             throw new UserAlreadyExistException("Unknown cryptocurrency code");
         } else {
-            if (userRepository.findByUsername(user.getUsername()) != null) {
-                throw new UserAlreadyExistException("User with this name is registered");
-            } else {
-                Price price = Price.builder()
-                        .id(user.getId())
-                        .priceUsd(crypto.getPriceUsd())
-                        .build();
-                priceRepository.save(price);
-                user.setPrice(price);
-                userRepository.save(user);
+            if (crypto.getPriceUsd() == null){
+                throw new UserAlreadyExistException("No cryptocurrency price");
+            }else {
+                if (userRepository.findByUsername(user.getUsername()) != null) {
+                    throw new UserAlreadyExistException("User with this name is registered");
+                } else {
+                    Price price = Price.builder()
+                            .id(user.getId())
+                            .priceUsd(crypto.getPriceUsd())
+                            .build();
+                    priceRepository.save(price);
+                    user.setPrice(price);
+                    userRepository.save(user);
+                }
             }
         }
     }
