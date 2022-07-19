@@ -26,6 +26,8 @@ public class CryptoServiceImpl implements CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<CryptoNameDTO> getAll() {
@@ -113,4 +115,5 @@ public class CryptoServiceImpl implements CryptoService {
             }
         }
     }
+
 }
