@@ -23,6 +23,5 @@ public class CryptoScheduler {
         cryptoService.editPrice(bts);
         cryptoService.editPrice(eth);
         cryptoService.editPrice(sol);
-        cryptoService.priceChange();
     }
 }

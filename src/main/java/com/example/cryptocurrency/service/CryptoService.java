@@ -13,5 +13,4 @@ public interface CryptoService {
 
     void editPrice(String cryptos);
 
-    void priceChange ();
 }

@@ -26,8 +26,6 @@ public class CryptoServiceImpl implements CryptoService {
 
     @Autowired
     private CryptoRepository cryptoRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public List<CryptoNameDTO> getAll() {
@@ -63,34 +61,33 @@ public class CryptoServiceImpl implements CryptoService {
             if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
                 isR = new InputStreamReader(connection.getInputStream());
                 bfR = new BufferedReader(isR);
-                Gson g = new Gson();
+                Gson gson = new Gson();
                 Crypto crypto = new Crypto();
 
                 String line;
                 while ((line = bfR.readLine()) != null) {
                     log.warn(line);
-                    CryptoDTO[] p = g.fromJson(line, CryptoDTO[].class);
-
-                    List<CryptoDTO> cryptocurrency = Arrays.stream(p)
+                    CryptoDTO[] cryptoDTOS = gson.fromJson(line, CryptoDTO[].class);
+                    List<CryptoDTO> cryptocurrency = Arrays.stream(cryptoDTOS)
                             .collect(Collectors.toList());
 
-                    for (CryptoDTO a : cryptocurrency) {
-                        crypto.setId(a.getId());
-                        crypto.setSymbol(a.getSymbol());
-                        crypto.setName(a.getName());
-                        crypto.setNameId(a.getNameid());
-                        crypto.setRank(a.getRank());
-                        crypto.setPriceUsd(a.getPrice_usd());
-                        crypto.setPercentChange24H(a.getPercent_change_24h());
-                        crypto.setPercentChange1H(a.getPercent_change_1h());
-                        crypto.setPercentChange7D(a.getPercent_change_7d());
-                        crypto.setMarketCapUsd(a.getMarket_cap_usd());
-                        crypto.setVolume24(a.getVolume24());
-                        crypto.setVolume24Native(a.getVolume24_native());
-                        crypto.setCsupply(a.getCsupply());
-                        crypto.setPriceBtc(a.getPrice_btc());
-                        crypto.setTsupply(a.getTsupply());
-                        crypto.setMsupply(a.getMsupply());
+                    for (CryptoDTO cryptoDTO : cryptocurrency) {
+                        crypto.setId(cryptoDTO.getId());
+                        crypto.setSymbol(cryptoDTO.getSymbol());
+                        crypto.setName(cryptoDTO.getName());
+                        crypto.setNameId(cryptoDTO.getNameid());
+                        crypto.setRank(cryptoDTO.getRank());
+                        crypto.setPriceUsd(cryptoDTO.getPrice_usd());
+                        crypto.setPercentChange24H(cryptoDTO.getPercent_change_24h());
+                        crypto.setPercentChange1H(cryptoDTO.getPercent_change_1h());
+                        crypto.setPercentChange7D(cryptoDTO.getPercent_change_7d());
+                        crypto.setMarketCapUsd(cryptoDTO.getMarket_cap_usd());
+                        crypto.setVolume24(cryptoDTO.getVolume24());
+                        crypto.setVolume24Native(cryptoDTO.getVolume24_native());
+                        crypto.setCsupply(cryptoDTO.getCsupply());
+                        crypto.setPriceBtc(cryptoDTO.getPrice_btc());
+                        crypto.setTsupply(cryptoDTO.getTsupply());
+                        crypto.setMsupply(cryptoDTO.getMsupply());
                     }
                     cryptoRepository.save(crypto);
                 }
@@ -113,37 +110,6 @@ public class CryptoServiceImpl implements CryptoService {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void priceChange() {
-        List<User> users = userRepository.findAll();
-        List<Crypto> cryptos = cryptoRepository.findAll();
-        for (Crypto crypto : cryptos) {
-            for (User user : users) {
-                if (user.getSymbol().equals(crypto.getSymbol())) {
-                    double priceUsd = crypto.getPriceUsd().doubleValue();
-                    double price = user.getPrice().getPriceUsd().doubleValue();
-                    if (priceUsd >= price) {
-                        double calculation = ((priceUsd - price) / ((priceUsd + price) / 2)) * 100;
-                        int percent = (int) calculation;
-                        if (calculation >= 1) {
-                            log.warn("\nSymbol : " + user.getSymbol()
-                                    + "\nUsername : " + user.getUsername()
-                                    + "\nPrice change percentage : -" + percent + "%");
-                        }
-                    } else {
-                        double calculation = ((price - priceUsd) / ((price + priceUsd) / 2)) * 100;
-                        int percent = (int) calculation;
-                        if (calculation >= 1) {
-                            log.warn("\nSymbol : " + user.getSymbol()
-                                    + "\nUsername : " + user.getUsername()
-                                    + "\nPrice change percentage : -" + percent + "%");
-                        }
-                    }
-                }
             }
         }
     }
