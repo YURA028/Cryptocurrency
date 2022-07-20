@@ -7,8 +7,6 @@ import com.example.cryptocurrency.exception.UserAlreadyExistException;
 import com.example.cryptocurrency.repository.CryptoRepository;
 import com.example.cryptocurrency.repository.PriceRepository;
 import com.example.cryptocurrency.repository.UserRepository;
-import com.sun.istack.logging.Logger;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +14,8 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-
+@Slf4j
 public class UserServiceImpl implements UserService{
-    private static final Logger log = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -72,14 +69,14 @@ public class UserServiceImpl implements UserService{
                     double calculationMore = ((priceUsd - price)  / priceUsd) * 100;
                     double calculationLess = ((price - priceUsd) / price) * 100;
                     if (calculationMore >= 1) {
-                        log.warning("\nSymbol : " + user.getSymbol()
+                        log.warn("\nSymbol : " + user.getSymbol()
                                 + "\nUsername : " + user.getUsername()
                                 + "\nPrice change percentage : +" + (int) calculationMore + " %");
                         n = true;
                         break;
                     } else {
                         if (calculationLess >= 1) {
-                            log.warning("\nSymbol : " + user.getSymbol()
+                            log.warn("\nSymbol : " + user.getSymbol()
                                     + "\nUsername : " + user.getUsername()
                                     + "\nPrice change percentage : -" + (int) calculationLess + " %");
                             n = true;
